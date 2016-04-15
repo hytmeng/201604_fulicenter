@@ -65,7 +65,6 @@ import cn.ucai.fulicenter.R;
 import cn.ucai.fulicenter.FuLiCenterApplication;
 import cn.ucai.fulicenter.activity.AddContactActivity;
 import cn.ucai.fulicenter.activity.ChatActivity;
-import cn.ucai.fulicenter.activity.GroupsActivity;
 import cn.ucai.fulicenter.activity.MainActivity;
 import cn.ucai.fulicenter.activity.NewFriendsMsgActivity;
 import cn.ucai.fulicenter.activity.PublicChatRoomsActivity;
@@ -247,7 +246,7 @@ public class ContactlistFragment extends Fragment{
 					startActivity(new Intent(getActivity(), NewFriendsMsgActivity.class));
 				} else if (Constant.GROUP_USERNAME.equals(username)) {
 					// 进入群聊列表页面
-					startActivity(new Intent(getActivity(), GroupsActivity.class));
+//					startActivity(new Intent(getActivity(), GroupsActivity.class));
 				} else if(Constant.CHAT_ROOM.equals(username)){
 					//进入聊天室列表页面
 				    startActivity(new Intent(getActivity(), PublicChatRoomsActivity.class));

@@ -55,8 +55,6 @@ import cn.ucai.fulicenter.domain.User;
 import cn.ucai.fulicenter.listener.OnSetAvatarListener;
 import cn.ucai.fulicenter.task.DownloadContactListTask;
 import cn.ucai.fulicenter.task.DownloadContactTask;
-import cn.ucai.fulicenter.task.DownloadGroupListTask;
-import cn.ucai.fulicenter.task.DownloadPublicGroupListTask;
 import cn.ucai.fulicenter.utils.CommonUtils;
 import cn.ucai.fulicenter.utils.MD5;
 import cn.ucai.fulicenter.utils.NetUtil;
@@ -331,10 +329,6 @@ public class LoginActivity extends BaseActivity {
                     new DownloadContactTask(mContext, currentUsername, 0, 20).execute();
                     //下载好友列表
                     new DownloadContactListTask(mContext,currentUsername,0,20).execute();
-                    //下载群组列表
-                    new DownloadGroupListTask(mContext, currentUsername).execute();
-					//下载公有群组列表
-					new DownloadPublicGroupListTask(mContext, currentUsername,0).execute();
                 }
             });
 

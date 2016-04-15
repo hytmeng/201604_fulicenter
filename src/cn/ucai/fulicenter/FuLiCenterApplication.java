@@ -24,7 +24,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import cn.ucai.fulicenter.bean.ContactBean;
-import cn.ucai.fulicenter.bean.GroupBean;
 import cn.ucai.fulicenter.bean.UserBean;
 import cn.ucai.fulicenter.data.RequestManager;
 
@@ -141,8 +140,6 @@ public class FuLiCenterApplication extends Application {
 
 
 	private HashMap<Integer, ContactBean> contacts = new HashMap<Integer, ContactBean>();
-	private ArrayList<GroupBean> grouplist = new ArrayList<GroupBean>();
-	private ArrayList<GroupBean> publicGroupList = new ArrayList<GroupBean>();
 	private HashMap<String, ArrayList<UserBean>> groupMembers = new HashMap<String, ArrayList<UserBean>>();
 
 	public UserBean getUser() {
@@ -177,21 +174,6 @@ public class FuLiCenterApplication extends Application {
 		this.userList = userList;
 	}
 
-	public ArrayList<GroupBean> getGrouplist() {
-		return grouplist;
-	}
-
-	public void setGrouplist(ArrayList<GroupBean> grouplist) {
-		this.grouplist = grouplist;
-	}
-
-	public ArrayList<GroupBean> getPublicGroupList() {
-		return publicGroupList;
-	}
-
-	public void setPublicGroupList(ArrayList<GroupBean> publicGroupList) {
-		this.publicGroupList = publicGroupList;
-	}
 
 	public HashMap<String, ArrayList<UserBean>> getGroupMembers() {
 		return groupMembers;

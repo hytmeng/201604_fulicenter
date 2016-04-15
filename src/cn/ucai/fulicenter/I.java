@@ -1,26 +1,16 @@
 package cn.ucai.fulicenter;
 
 /**
- * Created by ucai on 2016/4/6.
- 
- 
- 个人资料上传头像bug：服务端没有收到上传的头像。
- * ChatActivity聊天页面没有显示登陆用户的头像
- * @author chen
- *
- 
- 
+ * Created by sks on 2016/4/5.
  */
-public class I {
+public interface I {
 
-//    String SERVER_ROOT="http://10.0.2.2:8080/FuLiCenterServer/Server";
-    String SERVER_ROOT="http://139.196.185.33:8080/FuLiCenterServer/Server";
-    //String SERVER_ROOT="http://139.196.185.33:8080/SuperQQ3Server/Server";
+
     public static final String AVATAR_PATH = "D:/project/github/SuperWeChat_Database/";
     public static final String PAGE_ID = "pageId";
     public static final String PAGE_SIZE = "pageSize";
-    /** 上传图片的类型：user_avatar或group_icon*/
-    public static final String AVATAR_TYPE="avatarType";
+    /** 上传图片的类型：user_avatar或group_icon */
+    public static final String AVATAR_TYPE = "avatarType";
     public static final String FILE_NAME="file_name";
     
     public static final int PAGE_ID_DEFAULT = 0;
@@ -186,7 +176,6 @@ public class I {
         public static final String COLOR_CODE="colorcode";
         public static final String COLOR_IMG="colorimg";
     }
-    
     public static class User {
         public static final String ID = "id";
         public static final String UID = "uid";
@@ -195,8 +184,7 @@ public class I {
         public static final String AVATAR = "avatar";
         public static final String HEADER = "header";
         public static final String PASSWORD = "password";
-    
-        public static final String UN_READ_MSG_COUNT="unreadMsgCount";
+        public static final String UN_READ_MSG_COUNT = "unreadMsgCount";
     }
 
     public static class Contact extends User {
@@ -205,51 +193,37 @@ public class I {
         public static final String CUID = "cuid";
     }
 
-    public enum ActionType {
-        ACTION_DOWNLOAD, ACTION_PULL_DOWN, ACTION_SCROLL
 
-    }
 
-    public final int NEW_GOOD=0;
-    public final int CATEGORY_GOOD=1;
-    public final int CAT_ID=0;
-    
+    public static final String KEY_REQUEST = "request";
+    public static final String REQUEST_SERVERSTATUS = "server_status";
     /**
      * 客户端发送的注册请求
      */
-//    public static final String REQUEST_REGISTER = "register";
-
-/**
-     * 商品排序方式
-     */
-    public final int SORT_BY_PRICE_ASC=1;
-    public final int SORT_BY_PRICE_DESC=2;
-    public final int SORT_BY_ADDTIME_ASC=3;
-    public final int SORT_BY_ADDTIME_DESC=4;
-    String KEY_REQUEST="request";
+    public static final String REQUEST_REGISTER = "register";
     /**
      * 发送取消注册的请求
      */
-//    public static final String REQUEST_UNREGISTER = "unregister";
+    public static final String REQUEST_UNREGISTER = "unregister";
 
     /**
      * 客户端上传头像的请求
      */
-//    public static final String REQUEST_UPLOAD_AVATAR = "upload_avatar";
+    public static final String REQUEST_UPLOAD_AVATAR = "upload_avatar";
     /**
      * 客户端发送的登陆请求
      */
-//    public static final String REQUEST_LOGIN = "login";
-//    public static final String REQUEST_DOWNLOAD_AVATAR = "download_avatar";
+    public static final String REQUEST_LOGIN = "login";
+    public static final String REQUEST_DOWNLOAD_AVATAR = "download_avatar";
     public static final String REQUEST_DOWNLOAD_GROUP_AVATAR = "download_group_avatar";
-//    public static final String DOWNLOAD_AVATAR_URL = FuLiCenterApplication.SERVER_ROOT + "?request=" + REQUEST_DOWNLOAD_AVATAR + "&avatar=";
+//    public static final String DOWNLOAD_AVATAR_URL = FuLiCenterApplication.SERVER_ROOT +"?request="+REQUEST_DOWNLOAD_AVATAR+"&avatar=";
     public static final String ISON8859_1 = "iso8859-1";
     public static final String UTF_8 = "utf-8";
-//    public static final String REQUEST_DOWNLOAD_CONTACTS = "download_contacts";
-//    public static final String REQUEST_DOWNLOAD_CONTACT_LIST = "download_contact_list";
-//    public static final String REQUEST_DELETE_CONTACT = "delete_contact";
-//    public static final String REQUEST_ADD_CONTACT = "add_contact";
-//    public static final String REQUEST_FIND_USER = "find_user";
+    public static final String REQUEST_DOWNLOAD_CONTACTS = "download_contacts";
+    public static final String REQUEST_DOWNLOAD_CONTACT_LIST = "download_contact_list";
+    public static final String REQUEST_DELETE_CONTACT = "delete_contact";
+    public static final String REQUEST_ADD_CONTACT = "add_contact";
+    public static final String REQUEST_FIND_USER = "find_user";
     public static final String REQUEST_DOWNLOAD_CONTACT = "download_contacts";
     public static final String REQUEST_UPLOAD_LOCATION = "upload_location";
     public static final String REQUEST_DOWNLOAD_LOCATION = "download_location";
@@ -263,38 +237,7 @@ public class I {
     public static final String REQUEST_DOWNLOAD_GROUPS = "download_groups";
     public static final String REQUEST_FIND_PUBLIC_GROUPS = "download_public_groups";
     public static final String REQUEST_FIND_GROUP = "find_group_by_group_name";
-
-   /**
-     * 客户端发送的获得服务器状态的请求
-     */
-    String REQUEST_SERVERSTATUS="server_status";
-    /**
-     * 客户端发送的注册请求
-     */
-    String REQUEST_REGISTER="register";
-    /**
-     * 发送取消注册的请求
-     */
-    String REQUEST_UNREGISTER="unregister";
-    /**上传头像*/
-    String REQUEST_UPLOAD_AVATAR="upload_avatar";
-    /**登陆*/
-    String REQUEST_LOGIN="login";
-    
-    /**下载头像*/
-    String REQUEST_DOWNLOAD_AVATAR = "download_avatar";
-
-    String REQUEST_DOWNLOAD_CONTACTS = "download_contacts";
-
-    String REQUEST_DOWNLOAD_CONTACT_LIST = "download_contactlist";
-    
-    String REQUEST_DELETE_CONTACT="delete_contact";
-    /** 添加联系人 */
-    String REQUEST_ADD_CONTACT="add_contact";
-    
-    /** 查找联系人 */
-    String REQUEST_FIND_USER="find_user";
-    String REQUEST_FIND_CHARGE = "find_charge";
+String REQUEST_FIND_CHARGE = "find_charge";
     
     /** 从服务端查询精选首页的数据*/
     String REQUEST_FIND_BOUTIQUES="find_boutiques";
@@ -342,39 +285,39 @@ public class I {
     String REQUEST_DOWNLOAD_COLOR_IMG = "download_color_img";
     
     /** 下载商品相册图像的URL*/
-    String DOWNLOAD_AVATAR_URL=SERVER_ROOT+
+    String DOWNLOAD_AVATAR_URL=FuLiCenterApplication.SERVER_ROOT+
         "?request="+REQUEST_DOWNLOAD_AVATAR+"&avatar=";
     
     /** 下载商品相册图像的请求*/
     String REQUEST_DOWNLOAD_ALBUM_IMG="download_album_img_url";
     /** 下载商品相册图像的接口*/
-    String DOWNLOAD_ALBUM_IMG_URL=SERVER_ROOT+
+    String DOWNLOAD_ALBUM_IMG_URL=FuLiCenterApplication.SERVER_ROOT+
         "?request="+REQUEST_DOWNLOAD_ALBUM_IMG+"&img_url=";
     
     /** 下载精选首页图像的请求*/
     String REQUEST_DOWNLOAD_BOUTIQUE_IMG="download_boutique_img";
     /** 下载精选首页图像的接口*/
-    String DOWNLOAD_BOUTIQUE_IMG_URL=SERVER_ROOT+
+    String DOWNLOAD_BOUTIQUE_IMG_URL=FuLiCenterApplication.SERVER_ROOT+
         "?request="+REQUEST_DOWNLOAD_BOUTIQUE_IMG+"&"+Boutique.IMAGE_URL+"=";
     
     /** 下载分类商品大类图像的请求*/
     String REQUEST_DOWNLOAD_CATEGORY_GROUP_IMAGE="download_category_group_image";
     /** 下载分类商品大类图像的接口*/
-    String DOWNLOAD_DOWNLOAD_CATEGORY_GROUP_IMAGE_URL=SERVER_ROOT+
+    String DOWNLOAD_DOWNLOAD_CATEGORY_GROUP_IMAGE_URL=FuLiCenterApplication.SERVER_ROOT+
         "?request="+REQUEST_DOWNLOAD_CATEGORY_GROUP_IMAGE
         +"&"+D.CategoryGroup.IMAGE_URL+"=";
 
     /** 下载收藏商品图像的请求*/
     String REQUEST_DOWNLOAD_GOODS_THUMB="download_goods_thumb";
     /** 下载收藏商品图像的接口*/
-    String DOWNLOAD_GOODS_THUMB_URL=SERVER_ROOT+
+    String DOWNLOAD_GOODS_THUMB_URL=FuLiCenterApplication.SERVER_ROOT+
         "?request="+REQUEST_DOWNLOAD_GOODS_THUMB
         +"&"+Collect.GOODS_THUMB+"=";
     
     /** 下载分类商品小类图像的请求*/
     String REQUEST_DOWNLOAD_CATEGORY_CHILD_IMAGE="download_category_child_image";
     /** 下载分类商品小类图像的接口*/
-    String DOWNLOAD_DOWNLOAD_CATEGORY_CHILD_IMAGE_URL=SERVER_ROOT+
+    String DOWNLOAD_DOWNLOAD_CATEGORY_CHILD_IMAGE_URL=FuLiCenterApplication.SERVER_ROOT+
         "?request="+REQUEST_DOWNLOAD_CATEGORY_GROUP_IMAGE
         +"&"+D.CategoryChild.IMAGE_URL+"=";
     
@@ -382,5 +325,5 @@ public class I {
     //壹收款支付请求
     String REQUEST_PAY="pay";
     /**壹收款服务端支付URL*/
-    String PAY_URL=SERVER_ROOT+"?request="+REQUEST_PAY;
+    String PAY_URL=FuLiCenterApplication.SERVER_ROOT+"?request="+REQUEST_PAY;
 }

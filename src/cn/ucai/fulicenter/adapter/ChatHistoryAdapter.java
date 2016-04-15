@@ -36,7 +36,6 @@ import java.util.List;
 import cn.ucai.fulicenter.R;
 import cn.ucai.fulicenter.utils.CommonUtils;
 import cn.ucai.fulicenter.utils.SmileUtils;
-import cn.ucai.fulicenter.utils.UserUtils;
 
 /**
  * 聊天记录adpater
@@ -82,7 +81,7 @@ public class ChatHistoryAdapter extends ArrayAdapter<EMContact> {
 		if(user instanceof EMGroup){
 			//群聊消息，显示群聊头像
 //			holder.avatar.setImageResource(R.drawable.groups_icon);
-			UserUtils.setGroupBeanAvatar(((EMGroup) user).getGroupName(),holder.avatar);
+//			UserUtils.setGroupBeanAvatar(((EMGroup) user).getGroupName(),holder.avatar);
 		}else{
 			holder.avatar.setImageResource(R.drawable.default_avatar);
 		}

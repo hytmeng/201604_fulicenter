@@ -61,14 +61,12 @@ import com.easemob.EMChatRoomChangeListener;
 import com.easemob.EMError;
 import com.easemob.EMEventListener;
 import com.easemob.EMNotifierEvent;
-import com.easemob.EMValueCallBack;
 import com.easemob.chat.EMChatManager;
 import com.easemob.chat.EMChatRoom;
 import com.easemob.chat.EMContactManager;
 import com.easemob.chat.EMConversation;
 import com.easemob.chat.EMConversation.EMConversationType;
 import com.easemob.chat.EMGroup;
-import com.easemob.chat.EMGroupManager;
 import com.easemob.chat.EMMessage;
 import com.easemob.chat.EMMessage.ChatType;
 import com.easemob.chat.ImageMessageBody;
@@ -93,18 +91,13 @@ import java.util.Map;
 
 import cn.ucai.fulicenter.DemoHXSDKHelper;
 import cn.ucai.fulicenter.FuLiCenterApplication;
-import cn.ucai.fulicenter.I;
 import cn.ucai.fulicenter.R;
 import cn.ucai.fulicenter.adapter.ExpressionAdapter;
 import cn.ucai.fulicenter.adapter.ExpressionPagerAdapter;
 import cn.ucai.fulicenter.adapter.MessageAdapter;
 import cn.ucai.fulicenter.adapter.VoicePlayClickListener;
 import cn.ucai.fulicenter.applib.controller.HXSDKHelper;
-import cn.ucai.fulicenter.applib.model.GroupRemoveListener;
-import cn.ucai.fulicenter.bean.GroupBean;
 import cn.ucai.fulicenter.bean.UserBean;
-import cn.ucai.fulicenter.data.ApiParams;
-import cn.ucai.fulicenter.data.GsonRequest;
 import cn.ucai.fulicenter.domain.RobotUser;
 import cn.ucai.fulicenter.utils.CommonUtils;
 import cn.ucai.fulicenter.utils.ImageUtils;
@@ -187,7 +180,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener, EMEve
 	private File cameraFile;
 	static int resendPos;
 
-	private GroupListener groupListener;
+//	private GroupListener groupListener;
 
 	private ImageView iv_emoticons_normal;
 	private ImageView iv_emoticons_checked;
@@ -212,7 +205,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener, EMEve
 	public EMChatRoom room;
 	public boolean isRobot;
 
-	private GroupBean mGroup;
+//	private GroupBean mGroup;
 	public static ArrayList<UserBean> currentMemvers = new ArrayList<>();
 	
 	@Override
@@ -412,11 +405,11 @@ public class ChatActivity extends BaseActivity implements OnClickListener, EMEve
 			findViewById(R.id.container_video_call).setVisibility(View.GONE);
 			toChatUsername = getIntent().getStringExtra("groupId");
 
-			if(chatType == CHATTYPE_GROUP){
-			    onGroupViewCreation();
-			}else{ 
-			    onChatRoomViewCreation();
-			}
+//			if(chatType == CHATTYPE_GROUP){
+//			    onGroupViewCreation();
+//			}else{
+//			    onChatRoomViewCreation();
+//			}
 		}
         
 		// for chatroom type, we only init conversation and create view adapter on success
@@ -519,41 +512,41 @@ public class ChatActivity extends BaseActivity implements OnClickListener, EMEve
         });
 	}
 	
-	protected void onGroupViewCreation(){
-
-		HashMap<String, ArrayList<UserBean>> groupMembers = FuLiCenterApplication.getInstance().getGroupMembers();
-		ArrayList<UserBean> members = groupMembers.get(toChatUsername);
-		currentMemvers = new ArrayList<>();
-		if (members == null) {
-			try {
-				String path = new ApiParams()
-						.with(I.Group.GROUP_ID, toChatUsername)
-						.getRequestUrl(I.REQUEST_DOWNLOAD_GROUP_MEMBERS);
-				executeRequest(new GsonRequest<UserBean[]>(path, UserBean[].class,
-						responseDownloadMembers(), errorListener()));
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		} else {
-			currentMemvers.addAll(members);
-			if (adapter != null) {
-				adapter.notifyDataSetChanged();
-			}
-		}
-
-	    group = EMGroupManager.getInstance().getGroup(toChatUsername);
-		mGroup=UserUtils.getGroupBeanInfo(group.getGroupName());
-
-		if (group != null){
-            ((TextView) findViewById(R.id.name)).setText(group.getGroupName());
-        }else{
-            ((TextView) findViewById(R.id.name)).setText(toChatUsername);
-        }
-        
-        // 监听当前会话的群聊解散被T事件
-        groupListener = new GroupListener();
-        EMGroupManager.getInstance().addGroupChangeListener(groupListener);
-	}
+//	protected void onGroupViewCreation(){
+//
+//		HashMap<String, ArrayList<UserBean>> groupMembers = FuLiCenterApplication.getInstance().getGroupMembers();
+//		ArrayList<UserBean> members = groupMembers.get(toChatUsername);
+//		currentMemvers = new ArrayList<>();
+//		if (members == null) {
+//			try {
+//				String path = new ApiParams()
+//						.with(I.Group.GROUP_ID, toChatUsername)
+//						.getRequestUrl(I.REQUEST_DOWNLOAD_GROUP_MEMBERS);
+//				executeRequest(new GsonRequest<UserBean[]>(path, UserBean[].class,
+//						responseDownloadMembers(), errorListener()));
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			}
+//		} else {
+//			currentMemvers.addAll(members);
+//			if (adapter != null) {
+//				adapter.notifyDataSetChanged();
+//			}
+//		}
+//
+//	    group = EMGroupManager.getInstance().getGroup(toChatUsername);
+//		mGroup=UserUtils.getGroupBeanInfo(group.getGroupName());
+//
+//		if (group != null){
+//            ((TextView) findViewById(R.id.name)).setText(group.getGroupName());
+//        }else{
+//            ((TextView) findViewById(R.id.name)).setText(toChatUsername);
+//        }
+//
+//        // 监听当前会话的群聊解散被T事件
+//        groupListener = new GroupListener();
+//        EMGroupManager.getInstance().addGroupChangeListener(groupListener);
+//	}
 
 	private Response.Listener<UserBean[]> responseDownloadMembers() {
 		return new Response.Listener<UserBean[]>() {
@@ -577,47 +570,47 @@ public class ChatActivity extends BaseActivity implements OnClickListener, EMEve
 		};
 	}
 
-	protected void onChatRoomViewCreation(){
-        
-        final ProgressDialog pd = ProgressDialog.show(this, "", "Joining......");
-        EMChatManager.getInstance().joinChatRoom(toChatUsername, new EMValueCallBack<EMChatRoom>() {
-        
-        @Override
-        public void onSuccess(EMChatRoom value) {
-            // TODO Auto-generated method stub
-             runOnUiThread(new Runnable(){
-                   @Override
-                   public void run(){
-                        pd.dismiss();
-                        room = EMChatManager.getInstance().getChatRoom(toChatUsername);
-                        if(room !=null){
-                            ((TextView) findViewById(R.id.name)).setText(room.getName());
-                        }else{
-                            ((TextView) findViewById(R.id.name)).setText(toChatUsername);
-                        }
-                        EMLog.d(TAG, "join room success : " + room.getName());
-                        
-                        onConversationInit();
-                        
-                        onListViewCreation();
-                   }
-               });
-        }
-        
-        @Override
-        public void onError(final int error, String errorMsg) {
-                // TODO Auto-generated method stub
-                EMLog.d(TAG, "join room failure : " + error);
-               runOnUiThread(new Runnable(){
-                   @Override
-                   public void run(){
-                       pd.dismiss();
-                   }
-               });
-               finish();
-            }
-        });
-	}
+//	protected void onChatRoomViewCreation(){
+//
+//        final ProgressDialog pd = ProgressDialog.show(this, "", "Joining......");
+//        EMChatManager.getInstance().joinChatRoom(toChatUsername, new EMValueCallBack<EMChatRoom>() {
+//
+//        @Override
+//        public void onSuccess(EMChatRoom value) {
+//            // TODO Auto-generated method stub
+//             runOnUiThread(new Runnable(){
+//                   @Override
+//                   public void run(){
+//                        pd.dismiss();
+//                        room = EMChatManager.getInstance().getChatRoom(toChatUsername);
+//                        if(room !=null){
+//                            ((TextView) findViewById(R.id.name)).setText(room.getName());
+//                        }else{
+//                            ((TextView) findViewById(R.id.name)).setText(toChatUsername);
+//                        }
+//                        EMLog.d(TAG, "join room success : " + room.getName());
+//
+//                        onConversationInit();
+//
+//                        onListViewCreation();
+//                   }
+//               });
+//        }
+//
+//        @Override
+//        public void onError(final int error, String errorMsg) {
+//                // TODO Auto-generated method stub
+//                EMLog.d(TAG, "join room failure : " + error);
+//               runOnUiThread(new Runnable(){
+//                   @Override
+//                   public void run(){
+//                       pd.dismiss();
+//                   }
+//               });
+//               finish();
+//            }
+//        });
+//	}
 	
 	/**
 	 * onActivityResult
@@ -907,7 +900,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener, EMEve
 	public void selectPicFromCamera() {
 		if (!CommonUtils.isExitsSdcard()) {
 			String st = getResources().getString(R.string.sd_card_does_not_exist);
-			Toast.makeText(getApplicationContext(), st, 0).show();
+			Toast.makeText(getApplicationContext(), st, Toast.LENGTH_SHORT).show();
 			return;
 		}
 
@@ -1289,27 +1282,27 @@ public class ChatActivity extends BaseActivity implements OnClickListener, EMEve
 				.putExtra("cancel", true), REQUEST_CODE_EMPTY_HISTORY);
 	}
 
-	/**
-	 * 点击进入群组详情
-	 * 
-	 * @param view
-	 */
-	public void toGroupDetails(View view) {
-		if (room == null && group == null) {
-			Toast.makeText(getApplicationContext(), R.string.gorup_not_found, Toast.LENGTH_SHORT).show();
-			return;
-		}
-		if(chatType == CHATTYPE_GROUP){
-			Intent intent = new Intent(this, GroupDetailsActivity.class);
-			intent.putExtra("groupId", toChatUsername);
-			intent.putExtra("group",mGroup);
-			startActivityForResult(intent,
-					REQUEST_CODE_GROUP_DETAIL);
-		}else{
-			startActivityForResult((new Intent(this, ChatRoomDetailsActivity.class).putExtra("roomId", toChatUsername)),
-					REQUEST_CODE_GROUP_DETAIL);
-		}
-	}
+//	/**
+//	 * 点击进入群组详情
+//	 *
+//	 * @param view
+//	 */
+//	public void toGroupDetails(View view) {
+//		if (room == null && group == null) {
+//			Toast.makeText(getApplicationContext(), R.string.gorup_not_found, Toast.LENGTH_SHORT).show();
+//			return;
+//		}
+//		if(chatType == CHATTYPE_GROUP){
+//			Intent intent = new Intent(this, GroupDetailsActivity.class);
+//			intent.putExtra("groupId", toChatUsername);
+//			intent.putExtra("group",mGroup);
+//			startActivityForResult(intent,
+//					REQUEST_CODE_GROUP_DETAIL);
+//		}else{
+//			startActivityForResult((new Intent(this, ChatRoomDetailsActivity.class).putExtra("roomId", toChatUsername)),
+//					REQUEST_CODE_GROUP_DETAIL);
+//		}
+//	}
 
 	/**
 	 * 显示或隐藏图标按钮页
@@ -1524,9 +1517,9 @@ public class ChatActivity extends BaseActivity implements OnClickListener, EMEve
 	protected void onDestroy() {
 		super.onDestroy();
 		activityInstance = null;
-		if(groupListener != null){
-		    EMGroupManager.getInstance().removeGroupChangeListener(groupListener);
-		}
+//		if(groupListener != null){
+//		    EMGroupManager.getInstance().removeGroupChangeListener(groupListener);
+//		}
 	}
 
 	@Override
@@ -1762,46 +1755,46 @@ public class ChatActivity extends BaseActivity implements OnClickListener, EMEve
 		}
 	}
 	
-	/**
-	 * 监测群组解散或者被T事件
-	 * 
-	 */
-	class GroupListener extends GroupRemoveListener {
+//	/**
+//	 * 监测群组解散或者被T事件
+//	 *
+//	 */
+//	class GroupListener extends GroupRemoveListener {
+//
+//		@Override
+//		public void onUserRemoved(final String groupId, String groupName) {
+//			runOnUiThread(new Runnable() {
+//				String st13 = getResources().getString(R.string.you_are_group);
+//
+//				public void run() {
+//					if (toChatUsername.equals(groupId)) {
+//						Toast.makeText(ChatActivity.this, st13, Toast.LENGTH_LONG).show();
+//						if (GroupDetailsActivity.instance != null)
+//							GroupDetailsActivity.instance.finish();
+//						finish();
+//					}
+//				}
+//			});
+//		}
 
-		@Override
-		public void onUserRemoved(final String groupId, String groupName) {
-			runOnUiThread(new Runnable() {
-				String st13 = getResources().getString(R.string.you_are_group);
-
-				public void run() {
-					if (toChatUsername.equals(groupId)) {
-						Toast.makeText(ChatActivity.this, st13, Toast.LENGTH_LONG).show();
-						if (GroupDetailsActivity.instance != null)
-							GroupDetailsActivity.instance.finish();
-						finish();
-					}
-				}
-			});
-		}
-
-		@Override
-		public void onGroupDestroy(final String groupId, String groupName) {
-			// 群组解散正好在此页面，提示群组被解散，并finish此页面
-			runOnUiThread(new Runnable() {
-				String st14 = getResources().getString(R.string.the_current_group);
-
-				public void run() {
-					if (toChatUsername.equals(groupId)) {
-						Toast.makeText(ChatActivity.this, st14, 1).show();
-						if (GroupDetailsActivity.instance != null)
-							GroupDetailsActivity.instance.finish();
-						finish();
-					}
-				}
-			});
-		}
-
-	}
+//		@Override
+//		public void onGroupDestroy(final String groupId, String groupName) {
+//			// 群组解散正好在此页面，提示群组被解散，并finish此页面
+//			runOnUiThread(new Runnable() {
+//				String st14 = getResources().getString(R.string.the_current_group);
+//
+//				public void run() {
+//					if (toChatUsername.equals(groupId)) {
+//						Toast.makeText(ChatActivity.this, st14, 1).show();
+//						if (GroupDetailsActivity.instance != null)
+//							GroupDetailsActivity.instance.finish();
+//						finish();
+//					}
+//				}
+//			});
+//		}
+//
+//	}
 
 	public String getToChatUsername() {
 		return toChatUsername;

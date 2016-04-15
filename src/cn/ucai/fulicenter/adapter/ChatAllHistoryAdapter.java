@@ -102,7 +102,7 @@ public class ChatAllHistoryAdapter extends ArrayAdapter<EMConversation> {
 			// 群聊消息，显示群聊头像
 //			holder.avatar.setImageResource(R.drawable.group_icon);
 			EMGroup group = EMGroupManager.getInstance().getGroup(username);
-			UserUtils.setGroupBeanAvatar(group.getGroupName(),holder.avatar);
+//			UserUtils.setGroupBeanAvatar(group.getGroupName(),holder.avatar);
 			holder.name.setText(group != null ? group.getGroupName() : username);
 		} else if(conversation.getType() == EMConversationType.ChatRoom){
 		    holder.avatar.setImageResource(R.drawable.group_icon);

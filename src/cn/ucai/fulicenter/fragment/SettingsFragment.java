@@ -30,8 +30,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.easemob.EMCallBack;
+import com.easemob.chat.EMChatManager;
+import com.easemob.chat.EMChatOptions;
 
+import cn.ucai.fulicenter.Constant;
+import cn.ucai.fulicenter.DemoHXSDKHelper;
+import cn.ucai.fulicenter.DemoHXSDKModel;
 import cn.ucai.fulicenter.FuLiCenterApplication;
+import cn.ucai.fulicenter.R;
 import cn.ucai.fulicenter.activity.BlacklistActivity;
 import cn.ucai.fulicenter.activity.DiagnoseActivity;
 import cn.ucai.fulicenter.activity.LoginActivity;
@@ -39,13 +45,6 @@ import cn.ucai.fulicenter.activity.MainActivity;
 import cn.ucai.fulicenter.activity.OfflinePushNickActivity;
 import cn.ucai.fulicenter.activity.UserProfileActivity;
 import cn.ucai.fulicenter.applib.controller.HXSDKHelper;
-
-import com.easemob.chat.EMChatManager;
-import com.easemob.chat.EMChatOptions;
-import cn.ucai.fulicenter.Constant;
-import cn.ucai.fulicenter.DemoHXSDKHelper;
-import cn.ucai.fulicenter.DemoHXSDKModel;
-import cn.ucai.fulicenter.R;
 
 /**
  * 设置界面
@@ -369,8 +368,6 @@ public class SettingsFragment extends Fragment implements OnClickListener {
 						insatnce.getContactList().clear();
 						insatnce.getUserList().clear();
 						insatnce.getContacts().clear();
-						insatnce.getGrouplist().clear();
-						insatnce.getGroupMembers().clear();
 						pd.dismiss();
 						// 重新显示登陆页面
 						((MainActivity) getActivity()).finish();
