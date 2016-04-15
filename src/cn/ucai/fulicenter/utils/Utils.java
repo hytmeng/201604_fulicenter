@@ -83,4 +83,13 @@ public class Utils {
         }
         return null;
     }
+
+    public int px2dp(Context context,int px) {
+        int density= (int) context.getResources().getDisplayMetrics().density;
+        return px / density;
+    }
+    public int dp2px(Context context,int dp) {
+        int density= (int) context.getResources().getDisplayMetrics().density;
+        return dp*density;
+    }
 }

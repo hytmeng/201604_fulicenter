@@ -24,13 +24,13 @@ public class propertiesBean  implements Serializable {
     private String colorCode;
     private String colorImg;
     private String colorUrl;
-    private albumsBean albums;
+    private albumsBean[] albums;
 
-    public albumsBean getAlbums() {
+    public albumsBean[] getAlbums() {
         return albums;
     }
 
-    public void setAlbums(albumsBean albums) {
+    public void setAlbums(albumsBean[] albums) {
         this.albums = albums;
     }
 
