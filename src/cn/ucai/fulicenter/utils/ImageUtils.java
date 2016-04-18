@@ -70,4 +70,13 @@ public class ImageUtils {
 		imageView.setDefaultImageResId(R.drawable.nopic);
 		imageView.setErrorImageResId(R.drawable.nopic);
 	}
+
+	public static void setGoodDetailThumb(String colorImg, NetworkImageView imageView) {
+		String url = FuLiCenterApplication.SERVER_ROOT
+				+ "?" + I.KEY_REQUEST + "=" + I.REQUEST_DOWNLOAD_COLOR_IMG
+				+ "&" + I.Color.COLOR_IMG+ "=" + colorImg;
+		imageView.setImageUrl(url, RequestManager.getImageLoader());
+		imageView.setDefaultImageResId(R.drawable.bg_good);
+		imageView.setErrorImageResId(R.drawable.bg_good);
+	}
 }

@@ -73,7 +73,7 @@ public class SplashActivity extends BaseActivity {
 //						}
 //					}
                     //进入主页面
-                    startActivity(new Intent(SplashActivity.this, FulicenterMainActivity.class));
+                    startActivity(new Intent(SplashActivity.this, FuLiCenterMainActivity.class));
                     finish();
                 } else {
                     try {
@@ -81,7 +81,7 @@ public class SplashActivity extends BaseActivity {
                     } catch (InterruptedException e) {
                     }
                     //进入主页面
-                    startActivity(new Intent(SplashActivity.this, FulicenterMainActivity.class));
+                    startActivity(new Intent(SplashActivity.this, FuLiCenterMainActivity.class));
                     finish();
                 }
             }

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:background="@color/main_orange">
+<LinearLayout
+    android:id="@+id/ll_backCheck"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:layout_alignParentLeft="true"
+    >
+    <ImageView
+        android:id="@+id/ivheadback"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/back"
+        android:gravity="center"
+        android:scaleType="fitXY"
+        android:adjustViewBounds="true"
+        android:layout_gravity="center"
+        />
+
+</LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:layout_marginRight="40dp"
+        android:layout_toRightOf="@id/ll_backCheck"
+        >
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="商品详情"
+            android:textColor="@color/white"
+            android:lines="1"
+            android:ellipsize="end"
+            android:textSize="15sp"
+            android:gravity="center_vertical"
+            />
+    </LinearLayout>
+</RelativeLayout>
