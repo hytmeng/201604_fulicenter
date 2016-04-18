@@ -14,6 +14,13 @@ public interface I {
 
     /**每页加载的数据*/
     public static final String PAGE_SIZE="page_size";
+
+    /**排序定义
+     * */
+    public final int SORT_BY_PRICE_ASC=1;
+    public final int SORT_BY_PRICE_DESC=2;
+    public final int SORT_BY_ADDTIME_ASC=3;
+    public final int SORT_BY_ADDTIME_DESC=4;
     /** 上传图片的类型：user_avatar或group_icon */
     public static final String AVATAR_TYPE = "avatarType";
     public static final String FILE_NAME="file_name";

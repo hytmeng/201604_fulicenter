@@ -2,6 +2,7 @@ package cn.ucai.fulicenter.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,9 +45,7 @@ public class GoodsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
         isMore = more;
     }
 
-    public String getFooterText() {
-        return footerText;
-    }
+
 
     public void setFooterText(String footerText) {
         this.footerText = footerText;
@@ -55,6 +54,7 @@ public class GoodsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        Log.i("main", "viewType:" + viewType);
         LayoutInflater layout = LayoutInflater.from(mContext);
         RecyclerView.ViewHolder holder = null;
         switch (viewType) {
@@ -70,19 +70,25 @@ public class GoodsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        Log.i("main", "holder=" + holder);
 
         if (holder instanceof FooterViewHolder) {
+            Log.i("main", "FooterViewHolder" );
             mFooterViewHolder = (FooterViewHolder) holder;
             mFooterViewHolder.tvFooterText.setText(footerText);
             mFooterViewHolder.tvFooterText.setVisibility(View.VISIBLE);
         }
-        if (position == mGoodsList.size()) {
-            return;
-        }
+//        if (position == mGoodsList.size()) {
+//            Log.i("main", "position == mGoodsList.size()" + mGoodsList.size());
+//            return;
+//        }
         if (holder instanceof GoodViewHolder) {
+            Log.i("main", "GoodViewHolder" );
             mGoodViewHolder = (GoodViewHolder) holder;
             NewGoodBean newgood = mGoodsList.get(position);
+            Log.i("main", "newgood.." + newgood.toString());
             mGoodViewHolder.tvGoodsDetails.setText(newgood.getGoodsName());
+            Log.i("main", "mGoodViewHolder.tvGoodsDetails." + mGoodViewHolder.tvGoodsDetails.getText());
             mGoodViewHolder.tvGoodsPrice.setText(newgood.getCurrencyPrice());
             ImageUtils.setNewGoodThumb(newgood.getGoodsThumb(),mGoodViewHolder.ivNewGood);
         }
@@ -90,24 +96,31 @@ public class GoodsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
     @Override
     public int getItemCount() {
-        return mGoodsList==null?0:mGoodsList.size();
+        Log.i("main", "getItemCount:" + mGoodsList.size());
+        return mGoodsList==null?0:mGoodsList.size()+1;
     }
 
+
     @Override
-    public long getItemId(int position) {
-        if (position == getItemCount()) {
+    public int getItemViewType(int position) {
+        if (position == getItemCount()-1) {
             return I.TYPE_FOOTER;
         } else {
             return I.TYPE_ITEM;
         }
     }
 
+
+
     public void initItems(ArrayList<NewGoodBean> list) {
         if (mGoodsList != null && !mGoodsList.isEmpty()) {
             mGoodsList.clear();
         }
+        Log.i("main", "mGoodsList" + mGoodsList.size());
         mGoodsList.addAll(list);
+        Log.i("main", "mGoodsList" + mGoodsList.size());
         notifyDataSetChanged();
+
     }
 
     public void addItems(ArrayList<NewGoodBean> list) {
