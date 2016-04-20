@@ -64,6 +64,18 @@
             android:screenOrientation="portrait"
             android:theme="@style/horizontal_slide" >
         </activity>
+        <!--精品二级商品详情-->
+        <activity
+            android:name=".activity.BoutiqueChildGoodActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/horizontal_slide" >
+        </activity>
+        <!--分类二级商品详情-->
+        <activity
+            android:name=".activity.CategoryChildActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/horizontal_slide" >
+        </activity>
         <!-- 开屏页 -->
         <activity
             android:name="cn.ucai.fulicenter.activity.SplashActivity"

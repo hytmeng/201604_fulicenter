@@ -8,6 +8,8 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import cn.ucai.fulicenter.R;
+import cn.ucai.fulicenter.fragment.BoutiqueFragment;
+import cn.ucai.fulicenter.fragment.CategoryFragment;
 import cn.ucai.fulicenter.fragment.NewGoodFragment;
 
 /**
@@ -24,10 +26,12 @@ public class FuLiCenterMainActivity extends BaseActivity {
     RadioButton mLayoutPersonalCenter;
 
     NewGoodFragment mNewGoodFragment;
+    BoutiqueFragment mBoutiqueFragment;
+    CategoryFragment mCategoryFragment;
     Fragment[] mFragments = new Fragment[5];
 
     int index;
-    int currentIndex = -1;
+    int currentIndex = 0;
     RadioButton[] mRadios = new RadioButton[5];
 
     @Override
@@ -40,15 +44,21 @@ public class FuLiCenterMainActivity extends BaseActivity {
         getSupportFragmentManager()
                 .beginTransaction()
                 .add(R.id.fragment_container, mNewGoodFragment)
-//                .add(R.id.fragment_container, contactListFragment)
-//                .hide(contactListFragment)
+                .add(R.id.fragment_container, mBoutiqueFragment)
+                .add(R.id.fragment_container, mCategoryFragment)
+                .hide(mBoutiqueFragment)
+                .hide(mCategoryFragment)
                 .show(mNewGoodFragment)
                 .commit();
     }
 
     private void initFragment() {
         mNewGoodFragment = new NewGoodFragment();
+        mBoutiqueFragment = new BoutiqueFragment();
+        mCategoryFragment=new CategoryFragment();
         mFragments[0] = mNewGoodFragment;
+        mFragments[1] = mBoutiqueFragment;
+        mFragments[2] = mCategoryFragment;
     }
 
     private void initNewGood(){
@@ -70,9 +80,7 @@ public class FuLiCenterMainActivity extends BaseActivity {
     }
 
     private void setRadioDefaultChecked(int index) {
-        if(index == -1){
-            index = 0;
-        }
+
         for(int i = 0; i< mRadios.length; i++){
             if(i==index){
                 mRadios[i].setChecked(true);
@@ -114,9 +122,16 @@ public class FuLiCenterMainActivity extends BaseActivity {
                 index = 4;
                 break;
         }
-        if(currentIndex!=index){
-            currentIndex = index;
-            setRadioDefaultChecked(index);
+
+        if (currentIndex != index) {
+            FragmentTransaction trx = getSupportFragmentManager().beginTransaction();
+            trx.hide(mFragments[currentIndex]);
+            if (!mFragments[index].isAdded()) {
+                trx.add(R.id.fragment_container, mFragments[index]);
+            }
+            trx.show(mFragments[index]).commit();
         }
+        setRadioDefaultChecked(index);
+        currentIndex = index;
     }
 }

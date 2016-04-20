@@ -3,7 +3,6 @@ package cn.ucai.fulicenter.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -67,7 +66,6 @@ public class GoodAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        Log.e("main","onCreateViewHolder,viewType="+viewType);
         LayoutInflater inflater = LayoutInflater.from(mContext);
         ViewHolder holder = null;
         switch (viewType){
@@ -83,21 +81,20 @@ public class GoodAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Log.e("main","onCreateViewHolder,holder="+holder+",position="+position);
         if(holder instanceof FooterViewHolder){
             footerHolder = (FooterViewHolder) holder;
             footerHolder.tvFooter.setText(footerText);
             footerHolder.tvFooter.setVisibility(View.VISIBLE);
         }
-//        if(position == mGoodList.size()){
-//            return;
-//        }
+
         if(holder instanceof GoodItemViewHolder){
             goodHolder = (GoodItemViewHolder) holder;
             final NewGoodBean good = mGoodList.get(position);
             goodHolder.tvGoodName.setText(good.getGoodsName());
             goodHolder.tvGoodPrice.setText(good.getCurrencyPrice());
             ImageUtils.setNewGoodThumb(good.getGoodsThumb(),goodHolder.nivThumb);
+
+
 
             goodHolder.layoutGood.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -112,7 +109,6 @@ public class GoodAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        Log.e("main","getItemCount,mGoodList="+mGoodList.size());
         return mGoodList==null?1:mGoodList.size()+1;
     }
 

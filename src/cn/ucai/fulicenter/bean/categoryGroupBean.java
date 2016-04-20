@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * Created by ucai on 2016/4/15.
  */
-public class categoryGroupBean  implements Serializable {
+public class CategoryGroupBean implements Serializable {
 
     /**
      * id : 334
@@ -43,7 +43,7 @@ public class categoryGroupBean  implements Serializable {
 
     @Override
     public String toString() {
-        return "categoryGroupBean{" +
+        return "CategoryGroupBean{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", imageUrl='" + imageUrl + '\'' +

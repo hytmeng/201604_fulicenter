@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * Created by ucai on 2016/4/15.
  */
-public class categoryChildBean  implements Serializable {
+public class CategoryChildBean implements Serializable {
 
     /**
      * id : 348
@@ -53,7 +53,7 @@ public class categoryChildBean  implements Serializable {
 
     @Override
     public String toString() {
-        return "categoryChildBean{" +
+        return "CategoryChildBean{" +
                 "id=" + id +
                 ", parentId=" + parentId +
                 ", name='" + name + '\'' +

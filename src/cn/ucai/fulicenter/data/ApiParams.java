@@ -18,6 +18,8 @@ public class ApiParams extends HashMap<String, String> {
 	public String getRequestUrl(String request) throws Exception{
 		StringBuilder url = new StringBuilder(FuLiCenterApplication.SERVER_ROOT);
 		if (this == null || this.isEmpty()) {
+			url.append("?" + I.KEY_REQUEST + "=" + request + "&");
+			url.deleteCharAt(url.length() - 1);
 			return url.toString();
 		}
 		url.append("?" + I.KEY_REQUEST + "=" + request + "&");

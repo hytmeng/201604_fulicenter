@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * Created by ucai on 2016/4/15.
  */
-public class colorBean  implements Serializable {
+public class ColorBean implements Serializable {
 
     /**
      * catId : 262
@@ -63,7 +63,7 @@ public class colorBean  implements Serializable {
 
     @Override
     public String toString() {
-        return "colorBean{" +
+        return "ColorBean{" +
                 "catId=" + catId +
                 ", colorId=" + colorId +
                 ", colorName='" + colorName + '\'' +

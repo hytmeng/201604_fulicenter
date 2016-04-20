@@ -22,7 +22,6 @@ public class DisplayUtils {
     }
     public static void initBackwithTitle(final Activity activity,String title) {
         TextView tvTitle = (TextView) activity.findViewById(R.id.tv_title);
-
         tvTitle.setText(title);
         initBack(activity);
     }

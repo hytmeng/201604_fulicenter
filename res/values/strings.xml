@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="loading_more">loading more</string>
+    <string name="no_more_data">no more data</string>
+    <string name="refreshing">refreshing...</string>
     <string name="upload_avatar_failed">upload avatar failed</string>
     <string name="app_name">FuLiCenter-AS</string>
     <string name="text_ack_msg">Read</string>

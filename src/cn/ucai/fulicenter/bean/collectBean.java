@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * Created by ucai on 2016/4/15.
  */
-public class collectBean  implements Serializable {
+public class CollectBean implements Serializable {
 
     /**
      * id : 7672
@@ -27,10 +27,10 @@ public class collectBean  implements Serializable {
     private String goodsImg;
     private long addTime;
 
-    public collectBean() {
+    public CollectBean() {
     }
 
-    public collectBean(long addTime, String goodsImg, String goodsThumb, String goodsEnglishName, String goodsName, int goodsId, int userName) {
+    public CollectBean(long addTime, String goodsImg, String goodsThumb, String goodsEnglishName, String goodsName, int goodsId, int userName) {
         this.addTime = addTime;
         this.goodsImg = goodsImg;
         this.goodsThumb = goodsThumb;
@@ -106,7 +106,7 @@ public class collectBean  implements Serializable {
 
     @Override
     public String toString() {
-        return "collectBean{" +
+        return "CollectBean{" +
                 "id=" + id +
                 ", userName=" + userName +
                 ", goodsId=" + goodsId +

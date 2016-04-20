@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * Created by ucai on 2016/4/15.
  */
-public class propertiesBean  implements Serializable {
+public class PropertiesBean implements Serializable {
 
     /**
      * id : 9529
@@ -24,13 +24,13 @@ public class propertiesBean  implements Serializable {
     private String colorCode;
     private String colorImg;
     private String colorUrl;
-    private albumsBean[] albums;
+    private AlbumsBean[] albums;
 
-    public albumsBean[] getAlbums() {
+    public AlbumsBean[] getAlbums() {
         return albums;
     }
 
-    public void setAlbums(albumsBean[] albums) {
+    public void setAlbums(AlbumsBean[] albums) {
         this.albums = albums;
     }
 
@@ -92,7 +92,7 @@ public class propertiesBean  implements Serializable {
 
     @Override
     public String toString() {
-        return "propertiesBean{" +
+        return "PropertiesBean{" +
                 "id=" + id +
                 ", goodsId=" + goodsId +
                 ", colorId=" + colorId +

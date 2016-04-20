@@ -14,6 +14,8 @@
 package cn.ucai.fulicenter.utils;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Environment;
 
 import com.android.volley.toolbox.NetworkImageView;
@@ -70,6 +72,11 @@ public class ImageUtils {
 		imageView.setDefaultImageResId(R.drawable.nopic);
 		imageView.setErrorImageResId(R.drawable.nopic);
 	}
+	public static void setThumb(String path, NetworkImageView imageView) {
+		imageView.setImageUrl(path, RequestManager.getImageLoader());
+		imageView.setDefaultImageResId(R.drawable.nopic);
+		imageView.setErrorImageResId(R.drawable.nopic);
+	}
 
 	public static void setGoodDetailThumb(String colorImg, NetworkImageView imageView) {
 		String url = FuLiCenterApplication.SERVER_ROOT
@@ -78,5 +85,13 @@ public class ImageUtils {
 		imageView.setImageUrl(url, RequestManager.getImageLoader());
 		imageView.setDefaultImageResId(R.drawable.bg_good);
 		imageView.setErrorImageResId(R.drawable.bg_good);
+	}
+	public static int getDrawableWidth(Context context,int resId){
+		Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), resId);
+		return bitmap.getWidth();
+	}
+	public static int getDrawableHeight(Context context,int resId){
+		Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), resId);
+		return bitmap.getHeight();
 	}
 }
