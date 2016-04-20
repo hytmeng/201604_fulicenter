@@ -1,5 +1,6 @@
 package cn.ucai.fulicenter.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -7,10 +8,12 @@ import android.view.View;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+import cn.ucai.fulicenter.FuLiCenterApplication;
 import cn.ucai.fulicenter.R;
 import cn.ucai.fulicenter.fragment.BoutiqueFragment;
 import cn.ucai.fulicenter.fragment.CategoryFragment;
 import cn.ucai.fulicenter.fragment.NewGoodFragment;
+import cn.ucai.fulicenter.fragment.PersionalCenterFragment;
 
 /**
  * Created by clawpo on 16/4/16.
@@ -28,11 +31,15 @@ public class FuLiCenterMainActivity extends BaseActivity {
     NewGoodFragment mNewGoodFragment;
     BoutiqueFragment mBoutiqueFragment;
     CategoryFragment mCategoryFragment;
+    PersionalCenterFragment mPersionalCenterFragment;
     Fragment[] mFragments = new Fragment[5];
 
     int index;
     int currentIndex = 0;
     RadioButton[] mRadios = new RadioButton[5];
+
+    String mCurrentUserName;
+    private String action;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +53,8 @@ public class FuLiCenterMainActivity extends BaseActivity {
                 .add(R.id.fragment_container, mNewGoodFragment)
                 .add(R.id.fragment_container, mBoutiqueFragment)
                 .add(R.id.fragment_container, mCategoryFragment)
+                .add(R.id.fragment_container, mPersionalCenterFragment)
+                .hide(mPersionalCenterFragment)
                 .hide(mBoutiqueFragment)
                 .hide(mCategoryFragment)
                 .show(mNewGoodFragment)
@@ -56,27 +65,50 @@ public class FuLiCenterMainActivity extends BaseActivity {
         mNewGoodFragment = new NewGoodFragment();
         mBoutiqueFragment = new BoutiqueFragment();
         mCategoryFragment=new CategoryFragment();
+        mPersionalCenterFragment = new PersionalCenterFragment();
         mFragments[0] = mNewGoodFragment;
         mFragments[1] = mBoutiqueFragment;
         mFragments[2] = mCategoryFragment;
+        mFragments[4] = mPersionalCenterFragment;
     }
 
-    private void initNewGood(){
-        index = 0;
-        currentIndex = 0;
-        FragmentTransaction trx = getSupportFragmentManager().beginTransaction();
-        trx.hide(mFragments[currentIndex]);
-        if (!mFragments[index].isAdded()) {
-            trx.add(R.id.fragment_container, mFragments[index]);
-        }
-        trx.show(mFragments[index]).commit();
-        mLayoutNewGood.setChecked(true);
-    }
+//    private void initNewGood(){
+//        index = 0;
+//        currentIndex = 0;
+//        FragmentTransaction trx = getSupportFragmentManager().beginTransaction();
+//        trx.hide(mFragments[currentIndex]);
+//        if (!mFragments[index].isAdded()) {
+//            trx.add(R.id.fragment_container, mFragments[index]);
+//        }
+//        trx.show(mFragments[index]).commit();
+//        mLayoutNewGood.setChecked(true);
+//    }
 
     @Override
     protected void onResume() {
         super.onResume();
         setRadioDefaultChecked(currentIndex);
+        setFragment();
+    }
+
+    private void setFragment() {
+        mCurrentUserName = FuLiCenterApplication.getInstance().getUserName();
+        action = getIntent().getStringExtra("action");
+        if (action != null && mCurrentUserName != null && action.equals("persion")) {
+            index=4;
+            action = "";
+        }
+        if (currentIndex != index) {
+            FragmentTransaction trx = getSupportFragmentManager().beginTransaction();
+            trx.hide(mFragments[currentIndex]);
+            if (!mFragments[index].isAdded()) {
+                trx.add(R.id.fragment_container, mFragments[index]);
+            }
+            trx.show(mFragments[index]).commit();
+        }
+        setRadioDefaultChecked(index);
+        currentIndex = index;
+
     }
 
     private void setRadioDefaultChecked(int index) {
@@ -119,7 +151,12 @@ public class FuLiCenterMainActivity extends BaseActivity {
                 index = 3;
                 break;
             case R.id.layout_personal_center:
-                index = 4;
+                mCurrentUserName = FuLiCenterApplication.getInstance().getUserName();
+                if (mCurrentUserName != null) {
+                    index = 4;
+                } else {
+                    gotoLogin("persion");
+                }
                 break;
         }
 
@@ -133,5 +170,24 @@ public class FuLiCenterMainActivity extends BaseActivity {
         }
         setRadioDefaultChecked(index);
         currentIndex = index;
+    }
+
+    private void gotoLogin(String action) {
+        Intent intent = new Intent(this, LoginActivity.class);
+        intent.putExtra("action", action);
+        startActivity(intent);
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
+        action = getIntent().getStringExtra("action");
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        action = getIntent().getStringExtra("action");
     }
 }

@@ -65,7 +65,7 @@ public class RegisterActivity extends BaseActivity {
 
 	private void setListener() {
 		setRegisterOnClickListener();
-		setLoginOnClickListener();
+//		setLoginOnClickListener();
         setAvatarClickListener();
     }
 
@@ -87,14 +87,14 @@ public class RegisterActivity extends BaseActivity {
         mSetAvatarListener.setAvatar(requestCode,data,userAvatar);
     }
 
-    private void setLoginOnClickListener() {
-		findViewById(R.id.BtnLogin).setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				startActivity(new Intent(registerActivity,LoginActivity.class));
-			}
-		});
-	}
+//    private void setLoginOnClickListener() {
+//		findViewById(R.id.btnLogin).setOnClickListener(new View.OnClickListener() {
+//			@Override
+//			public void onClick(View v) {
+//				startActivity(new Intent(registerActivity,LoginActivity.class));
+//			}
+//		});
+//	}
 
 	private void initView() {
 		userNameEditText = (EditText) findViewById(R.id.username);

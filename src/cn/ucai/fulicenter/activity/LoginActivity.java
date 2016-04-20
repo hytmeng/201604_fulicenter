@@ -76,6 +76,7 @@ public class LoginActivity extends BaseActivity {
 
 	private String currentUsername;
 	private String currentPassword;
+	private String action;
 
 
 
@@ -86,7 +87,7 @@ public class LoginActivity extends BaseActivity {
 		// 如果用户名密码都有，直接进入主页面
 		if (DemoHXSDKHelper.getInstance().isLogined()) {
 			autoLogin = true;
-			startActivity(new Intent(LoginActivity.this, MainActivity.class));
+			startActivity(new Intent(LoginActivity.this, FuLiCenterMainActivity.class).putExtra("action",action));
 
 			return;
 		}
@@ -358,7 +359,7 @@ public class LoginActivity extends BaseActivity {
         }
         // 进入主页面
         Intent intent = new Intent(LoginActivity.this,
-                MainActivity.class);
+                FuLiCenterMainActivity.class).putExtra("action",action);
         startActivity(intent);
 
         finish();
@@ -415,6 +416,7 @@ public class LoginActivity extends BaseActivity {
 	@Override
 	protected void onResume() {
 		super.onResume();
+		action = getIntent().getStringExtra("action");
 		if (autoLogin) {
 			return;
 		}

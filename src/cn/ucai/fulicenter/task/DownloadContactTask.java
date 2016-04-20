@@ -2,7 +2,6 @@ package cn.ucai.fulicenter.task;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 
 import com.android.volley.Response;
 
@@ -53,6 +52,9 @@ public class DownloadContactTask extends BaseActivity {
         return new Response.Listener<ContactBean[]>() {
             @Override
             public void onResponse(ContactBean[] contacrs) {
+                if (contacrs == null) {
+                    return;
+                }
                 HashMap<Integer,ContactBean> map=new HashMap<>();
                 for (ContactBean contact:contacrs){
                     map.put(contact.getCuid(), contact);
@@ -60,7 +62,6 @@ public class DownloadContactTask extends BaseActivity {
                 FuLiCenterApplication instance = FuLiCenterApplication.getInstance();
                 HashMap<Integer, ContactBean> contactMap = instance.getContacts();
                 contactMap.putAll(map);
-                Log.i("main", "Response.Listener<ContactBean[]>+contact");
                 Intent intent = new Intent("update_contacts");
                 mContext.sendBroadcast(intent);
             }

@@ -2,7 +2,6 @@ package cn.ucai.fulicenter.task;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 
 import com.android.volley.Response;
 
@@ -58,17 +57,17 @@ public class DownloadContactListTask extends BaseActivity {
             @Override
             public void onResponse(UserBean[] contacrs) {
                 ArrayList<UserBean> contact = new ArrayList<>();
+                if (contacrs == null) {
+                    return;
+                }
 //                HashMap<String, UserBean> contact = new HashMap<>();
                 for (UserBean user:contacrs){
                     contact.add(user);
                 }
                 FuLiCenterApplication instance = FuLiCenterApplication.getInstance();
                ArrayList<UserBean> contactList = instance.getContactList();
-                Log.i("main", "Listener:" + contactList.size());
                 contactList.clear();
-                Log.i("main", "Listener:" + contactList.size());
                 contactList.addAll(contact);
-                Log.i("main", "Listener:" + contactList.size());
 
 
                 FuLiCenterApplication instance1 = new FuLiCenterApplication();

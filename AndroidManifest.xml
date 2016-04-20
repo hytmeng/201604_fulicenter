@@ -26,18 +26,6 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />
     <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
-    <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS" />
-    <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
-    <uses-permission android:name="android.permission.BROADCAST_STICKY" />
-    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
-
-    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
-
-    <permission android:name="cn.ucai.fulicenter.permission.C2D_MESSAGE"
-        android:protectionLevel="signature" />
-    <uses-permission android:name="cn.ucai.fulicenter.permission.C2D_MESSAGE" />
-    
-    
     <application
         android:name=".FuLiCenterApplication"
         android:allowBackup="true"
@@ -50,7 +38,7 @@
             android:theme="@style/horizontal_slide"
             android:windowSoftInputMode="adjustPan" >
         </activity>
-      <!--首页-->
+        <!--首页-->
         <activity
             android:name=".activity.FuLiCenterMainActivity"
             android:launchMode="singleTask"
@@ -92,7 +80,7 @@
         <activity
             android:name="cn.ucai.fulicenter.activity.LoginActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/horizontal_slide" 
+            android:theme="@style/horizontal_slide"
             android:windowSoftInputMode="adjustResize|stateVisible">
         </activity>
 
@@ -100,7 +88,7 @@
         <activity
             android:name="cn.ucai.fulicenter.activity.RegisterActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/horizontal_slide" 
+            android:theme="@style/horizontal_slide"
             android:windowSoftInputMode="adjustResize|stateVisible">
         </activity>
         <!-- 聊天页面 -->
@@ -127,7 +115,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/horizontal_slide" >
         </activity>
-        
+
         <!-- 新建群组 -->
         <!-- 退出群组提示框 -->
         <activity
@@ -201,7 +189,7 @@
             android:theme="@style/horizontal_slide"
             android:windowSoftInputMode="adjustPan" >
         </activity>
-        
+
         <!-- 语音通话 -->
         <activity
             android:name="cn.ucai.fulicenter.activity.VoiceCallActivity"
@@ -265,18 +253,18 @@
             android:windowSoftInputMode="stateAlwaysHidden" >
         </activity>
         <!-- robots list -->
-        <activity 
+        <activity
             android:name="cn.ucai.fulicenter.activity.RobotsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/horizontal_slide"
             android:windowSoftInputMode="stateAlwaysHidden"
             ></activity>
         <!-- user profile -->
-		<activity 
-		    android:name="cn.ucai.fulicenter.activity.UserProfileActivity"
-		    android:screenOrientation="portrait"
-		    android:theme="@style/horizontal_slide"
-		    ></activity>
+        <activity
+            android:name="cn.ucai.fulicenter.activity.UserProfileActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/horizontal_slide"
+            ></activity>
 
         <!-- 开机自启动服务 -->
         <receiver android:name="com.easemob.chat.StartServiceReceiver" >
@@ -287,7 +275,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </receiver>
-        
+
         <!-- gcm start -->
         <receiver
             android:name="com.easemob.chat.EMGCMBroadcastReceiver"
@@ -302,8 +290,8 @@
         <service android:name="com.easemob.chat.EMGCMListenerService"
             android:exported="false" >
         </service>
-        
-        <receiver 
+
+        <receiver
             android:name="cn.ucai.fulicenter.receiver.GCMPushBroadCast"
             android:exported="false">
             <intent-filter >
@@ -316,7 +304,9 @@
         <!-- 设置环信应用的appkey -->
         <meta-data
             android:name="EASEMOB_APPKEY"
-            android:value="hyt1993#superwechat" />
+            android:value="i#fulicenter"
+            />
+        <!--android:value="hyt1993#superwechat"-->
         <!-- 声明sdk所需的service -->
         <service android:name="com.easemob.chat.EMChatService"/>
         <!-- 声明sdk所需的receiver -->
@@ -333,7 +323,7 @@
 
         <!-- 百度地图所需的service -->
         <service
-            android:name="com.baidu.location.f" 
+            android:name="com.baidu.location.f"
             android:enabled="true"
             android:process=":remote" />
         <!-- umeng appkey，可忽略 -->
@@ -345,6 +335,18 @@
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="3ecea51f560650b1ed8a4b99808f52e8" />
 
-          </application>
+    </application>
+    <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS" />
+    <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
+    <uses-permission android:name="android.permission.BROADCAST_STICKY" />
+
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <permission android:name="cn.ucai.fulicenter.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+
+
+    <uses-permission android:name="cn.ucai.fulicenter.permission.C2D_MESSAGE" />
 
 </manifest>
