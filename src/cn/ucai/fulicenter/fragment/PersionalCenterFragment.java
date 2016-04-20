@@ -1,9 +1,13 @@
 package cn.ucai.fulicenter.fragment;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,11 +32,15 @@ public class PersionalCenterFragment extends Fragment {
     TextView mUserName;
     String mCurrentUserName;
     Button mbtnSetting;
+    TextView mCollectCount;
+
+    CollectCountChangerReceiver mCollectCountChangerReceiver;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mContext = (FuLiCenterMainActivity) getActivity();
         View layout = View.inflate(mContext, R.layout.fragment_persional_center, null);
+        CollectCountChangerReceiverRegister();
         initview(layout);
         initData();
         setListener();
@@ -49,7 +57,7 @@ public class PersionalCenterFragment extends Fragment {
     }
 
     private void initData() {
-        if (mUserName != null) {
+        if (mCurrentUserName != null) {
             mUserName.setText(mCurrentUserName);
             UserUtils.setCurrentUserBeanAvatar(mUserAvatar);
         }
@@ -60,5 +68,29 @@ public class PersionalCenterFragment extends Fragment {
         mUserAvatar = (NetworkImageView) layout.findViewById(R.id.nivUserAvatar);
         mUserName = (TextView) layout.findViewById(R.id.tvUserName);
         mbtnSetting = (Button) layout.findViewById(R.id.btnSetting);
+        mCollectCount = (TextView) layout.findViewById(R.id.ll_Collect_Baby_Count);
+    }
+
+    class CollectCountChangerReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String count = intent.getStringExtra("count");
+            Log.i("main", "intent.getStringExtra(count)" + count);
+            mCollectCount.setText(count);
+        }
+    }
+
+    private void CollectCountChangerReceiverRegister() {
+        mCollectCountChangerReceiver = new CollectCountChangerReceiver();
+        IntentFilter filter = new IntentFilter("countChanger");
+        mContext.registerReceiver(mCollectCountChangerReceiver, filter);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (mCollectCountChangerReceiver != null) {
+            mContext.unregisterReceiver(mCollectCountChangerReceiver);
+        }
     }
 }
