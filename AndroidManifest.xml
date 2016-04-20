@@ -46,6 +46,12 @@
             android:theme="@style/horizontal_slide"
             android:windowSoftInputMode="adjustPan" >
         </activity>
+        <!--设置-->
+        <activity
+            android:name=".activity.SettingsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/horizontal_slide" >
+        </activity>
         <!--商品详情-->
         <activity
             android:name=".activity.GoodDetailsActivity"
