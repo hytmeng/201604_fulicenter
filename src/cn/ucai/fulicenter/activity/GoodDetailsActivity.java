@@ -2,6 +2,7 @@ package cn.ucai.fulicenter.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -108,6 +109,7 @@ public class GoodDetailsActivity extends BaseActivity{
                     .with(I.Collect.GOODS_THUMB,mGoodDetails.getGoodsThumb())
                     .with(I.Collect.GOODS_ID, mGoodsId+"")
                     .getRequestUrl(I.REQUEST_ADD_COLLECT);
+            Log.i("main", path);
             executeRequest(new GsonRequest<MessageBean>(path,MessageBean.class,
                     responseDownloadAddCollectListener(),errorListener()));
         } catch (Exception e) {

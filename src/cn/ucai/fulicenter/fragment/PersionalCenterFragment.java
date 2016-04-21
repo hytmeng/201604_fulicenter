@@ -11,12 +11,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.volley.toolbox.NetworkImageView;
 
 import cn.ucai.fulicenter.FuLiCenterApplication;
 import cn.ucai.fulicenter.R;
+import cn.ucai.fulicenter.activity.CollectActivity;
 import cn.ucai.fulicenter.activity.FuLiCenterMainActivity;
 import cn.ucai.fulicenter.activity.SettingsActivity;
 import cn.ucai.fulicenter.task.DownloadCollectCountTask;
@@ -37,6 +39,8 @@ public class PersionalCenterFragment extends Fragment {
 
     CollectCountChangerReceiver mCollectCountChangerReceiver;
     UserChangerReceiver mUserChangerReceiver;
+
+    LinearLayout mllCollectBaby;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -50,6 +54,20 @@ public class PersionalCenterFragment extends Fragment {
     }
 
     private void setListener() {
+        setSettingButtonOnClickListener();
+        setCollectOnClickListener();
+    }
+
+    private void setCollectOnClickListener() {
+        mllCollectBaby.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mContext.startActivity(new Intent(mContext, CollectActivity.class));
+            }
+        });
+    }
+
+    private void setSettingButtonOnClickListener() {
         mbtnSetting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -59,13 +77,13 @@ public class PersionalCenterFragment extends Fragment {
     }
 
 
-
     private void initview(View layout) {
         mCurrentUserName = FuLiCenterApplication.getInstance().getUserName();
         mUserAvatar = (NetworkImageView) layout.findViewById(R.id.nivUserAvatar);
         mUserName = (TextView) layout.findViewById(R.id.tvUserName);
         mbtnSetting = (Button) layout.findViewById(R.id.btnSetting);
         mCollectCount = (TextView) layout.findViewById(R.id.ll_Collect_Baby_Count);
+        mllCollectBaby = (LinearLayout) layout.findViewById(R.id.ll_Collect_Baby);
     }
 
     class CollectCountChangerReceiver extends BroadcastReceiver {

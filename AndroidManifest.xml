@@ -58,6 +58,12 @@
             android:screenOrientation="portrait"
             android:theme="@style/horizontal_slide" >
         </activity>
+        <!--收藏列表-->
+        <activity
+            android:name=".activity.CollectActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/horizontal_slide" >
+        </activity>
         <!--精品二级商品详情-->
         <activity
             android:name=".activity.BoutiqueChildGoodActivity"
