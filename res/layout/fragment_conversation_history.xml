@@ -1,35 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
      android:background="@color/common_bg"
-    android:orientation="vertical" >
-
-    <RelativeLayout
+    >
+    <LinearLayout
+        android:id="@+id/llChatLow"
+        android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/height_top_bar"
-        android:background="@color/top_bar_normal_bg"
-        android:gravity="center_vertical" >
+        android:layout_height="wrap_content"
+        android:background="#f4f1f1"
+        android:orientation="horizontal">
+        <LinearLayout
 
-        <TextView
-            android:id="@+id/message_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="@string/session"
-            android:textColor="#fff"
-            android:textSize="18sp" />
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:orientation="vertical"
+            android:layout_weight="1">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/iconfont_xinxifill"
+                android:layout_gravity="center"
+                android:textColor="@color/black"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="消息"
+                android:textSize="20sp"
+                android:layout_gravity="center"
+                android:textColor="@color/black"/>
+        </LinearLayout>
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/black"
+            android:layout_marginTop="7dp"
+            android:layout_marginBottom="7dp"
+            />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:orientation="vertical"
+            android:layout_weight="1">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/iconfont_pengyou"
+                android:layout_gravity="center"
+                android:textColor="@color/white"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="好友"
+                android:layout_gravity="center"
+                android:textSize="20sp"
+                android:textColor="@color/black"/>
+        </LinearLayout>
+    </LinearLayout>
+<LinearLayout
+    android:layout_above="@id/llChatLow"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
-    </RelativeLayout>
+    <include layout="@layout/common_head_title_white" />
     <include layout="@layout/search_bar" />
 
     <include
         android:id="@+id/rl_error_item"
         layout="@layout/chat_neterror_item"
         android:visibility="gone" />
-    
-      <ListView
-         android:cacheColorHint="#00000000"
+
+    <ListView
+        android:cacheColorHint="#00000000"
         android:id="@+id/list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -37,3 +87,6 @@
         android:divider="@null"
         />
 </LinearLayout>
+
+
+</RelativeLayout>

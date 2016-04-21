@@ -5,7 +5,7 @@
     android:background="@color/white">
 
     <LinearLayout
-        android:id="@+id/backClickArea"
+        android:id="@+id/ll_backCheck"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_alignParentLeft="true"
@@ -28,10 +28,10 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:layout_marginRight="40dp"
-        android:layout_toRightOf="@id/backClickArea">
+        android:layout_toRightOf="@id/ll_backCheck">
 
         <TextView
-            android:id="@+id/tv_head_title"
+            android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="15dp"

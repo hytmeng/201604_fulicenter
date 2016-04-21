@@ -21,6 +21,12 @@ public interface I {
     public final int SORT_BY_PRICE_DESC=2;
     public final int SORT_BY_ADDTIME_ASC=3;
     public final int SORT_BY_ADDTIME_DESC=4;
+
+    /**
+     * 收藏action
+     */
+    public final static int ACTION_ADD_COLLECT=1;
+    public final static int ACTION_DELETE_COLLECT=2;
     /** 上传图片的类型：user_avatar或group_icon */
     public static final String AVATAR_TYPE = "avatarType";
     public static final String FILE_NAME="file_name";

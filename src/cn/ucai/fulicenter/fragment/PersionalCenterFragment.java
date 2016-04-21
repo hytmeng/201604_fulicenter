@@ -7,7 +7,6 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +19,7 @@ import cn.ucai.fulicenter.FuLiCenterApplication;
 import cn.ucai.fulicenter.R;
 import cn.ucai.fulicenter.activity.FuLiCenterMainActivity;
 import cn.ucai.fulicenter.activity.SettingsActivity;
+import cn.ucai.fulicenter.task.DownloadCollectCountTask;
 import cn.ucai.fulicenter.utils.UserUtils;
 
 
@@ -33,16 +33,18 @@ public class PersionalCenterFragment extends Fragment {
     String mCurrentUserName;
     Button mbtnSetting;
     TextView mCollectCount;
+    String count;
 
     CollectCountChangerReceiver mCollectCountChangerReceiver;
+    UserChangerReceiver mUserChangerReceiver;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mContext = (FuLiCenterMainActivity) getActivity();
         View layout = View.inflate(mContext, R.layout.fragment_persional_center, null);
         CollectCountChangerReceiverRegister();
+        UserChangerReceiverRegister();
         initview(layout);
-        initData();
         setListener();
         return layout;
     }
@@ -56,12 +58,7 @@ public class PersionalCenterFragment extends Fragment {
         });
     }
 
-    private void initData() {
-        if (mCurrentUserName != null) {
-            mUserName.setText(mCurrentUserName);
-            UserUtils.setCurrentUserBeanAvatar(mUserAvatar);
-        }
-    }
+
 
     private void initview(View layout) {
         mCurrentUserName = FuLiCenterApplication.getInstance().getUserName();
@@ -74,16 +71,43 @@ public class PersionalCenterFragment extends Fragment {
     class CollectCountChangerReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            String count = intent.getStringExtra("count");
-            Log.i("main", "intent.getStringExtra(count)" + count);
-            mCollectCount.setText(count);
+            int count1 = FuLiCenterApplication.getInstance().getCollectCount();
+            count = count1 + "";
+            refresh();
         }
     }
 
     private void CollectCountChangerReceiverRegister() {
         mCollectCountChangerReceiver = new CollectCountChangerReceiver();
-        IntentFilter filter = new IntentFilter("countChanger");
+        IntentFilter filter = new IntentFilter("update_collectCount");
         mContext.registerReceiver(mCollectCountChangerReceiver, filter);
+    }
+
+    class UserChangerReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String userName = FuLiCenterApplication.getInstance().getUserName();
+            new DownloadCollectCountTask(mContext, userName);
+            refresh();
+        }
+    }
+
+    private void refresh() {
+        String userName = FuLiCenterApplication.getInstance().getUserName();
+        if (userName != null) {
+            mUserName.setText(userName);
+            UserUtils.setCurrentUserBeanAvatar(mUserAvatar);
+        }
+        if (count != null) {
+            mCollectCount.setText(count);
+        }
+
+    }
+
+    private void UserChangerReceiverRegister() {
+        mUserChangerReceiver = new UserChangerReceiver();
+        IntentFilter filter = new IntentFilter("update_user");
+        mContext.registerReceiver(mUserChangerReceiver, filter);
     }
 
     @Override
@@ -91,6 +115,9 @@ public class PersionalCenterFragment extends Fragment {
         super.onDestroy();
         if (mCollectCountChangerReceiver != null) {
             mContext.unregisterReceiver(mCollectCountChangerReceiver);
+        }
+        if (mUserChangerReceiver != null) {
+            mContext.unregisterReceiver(mUserChangerReceiver);
         }
     }
 }

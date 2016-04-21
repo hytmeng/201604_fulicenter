@@ -53,11 +53,13 @@ import cn.ucai.fulicenter.db.EMUserDao;
 import cn.ucai.fulicenter.db.UserDao;
 import cn.ucai.fulicenter.domain.User;
 import cn.ucai.fulicenter.listener.OnSetAvatarListener;
+import cn.ucai.fulicenter.task.DownloadCollectCountTask;
 import cn.ucai.fulicenter.task.DownloadContactListTask;
 import cn.ucai.fulicenter.task.DownloadContactTask;
 import cn.ucai.fulicenter.utils.CommonUtils;
 import cn.ucai.fulicenter.utils.MD5;
 import cn.ucai.fulicenter.utils.NetUtil;
+import cn.ucai.fulicenter.view.DisplayUtils;
 
 /**
  * 登陆页面
@@ -88,7 +90,6 @@ public class LoginActivity extends BaseActivity {
 		if (DemoHXSDKHelper.getInstance().isLogined()) {
 			autoLogin = true;
 			startActivity(new Intent(LoginActivity.this, FuLiCenterMainActivity.class).putExtra("action",action));
-
 			return;
 		}
 		setContentView(R.layout.activity_login);
@@ -97,6 +98,8 @@ public class LoginActivity extends BaseActivity {
 		passwordEditText = (EditText) findViewById(R.id.password);
 
 		mContext=this;
+		DisplayUtils.initBack(mContext);
+
 		setListener();
 
 
@@ -110,6 +113,7 @@ public class LoginActivity extends BaseActivity {
 		setUserNameTextChangedListener();
 		setRegisterClickListener();
         setServerUrlListener();
+
     }
     String serverUrl;
     private void setServerUrlListener() {
@@ -330,6 +334,8 @@ public class LoginActivity extends BaseActivity {
                     new DownloadContactTask(mContext, currentUsername, 0, 20).execute();
                     //下载好友列表
                     new DownloadContactListTask(mContext,currentUsername,0,20).execute();
+					//下载收藏数量
+					new DownloadCollectCountTask(mContext,currentUsername).execute();
                 }
             });
 
@@ -358,11 +364,19 @@ public class LoginActivity extends BaseActivity {
             pd.dismiss();
         }
         // 进入主页面
-        Intent intent = new Intent(LoginActivity.this,
-                FuLiCenterMainActivity.class).putExtra("action",action);
-        startActivity(intent);
-
-        finish();
+		sendStickyBroadcast(new Intent("update_user"));
+		if (action.equals("goodDetails")) {
+			finish();
+		} else if (action.equals("persion")) {
+			Intent intent = new Intent(LoginActivity.this,
+					FuLiCenterMainActivity.class).putExtra("action",action);
+			startActivity(intent);
+			finish();
+		}
+		Intent intent = new Intent(LoginActivity.this,
+				FuLiCenterMainActivity.class);
+		startActivity(intent);
+		finish();
     }
 
 	private void initializeContacts() {

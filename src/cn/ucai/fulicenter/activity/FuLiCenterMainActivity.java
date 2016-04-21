@@ -4,19 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
-import com.android.volley.Response;
-
 import cn.ucai.fulicenter.FuLiCenterApplication;
-import cn.ucai.fulicenter.I;
 import cn.ucai.fulicenter.R;
-import cn.ucai.fulicenter.bean.MessageBean;
-import cn.ucai.fulicenter.data.ApiParams;
-import cn.ucai.fulicenter.data.GsonRequest;
 import cn.ucai.fulicenter.fragment.BoutiqueFragment;
 import cn.ucai.fulicenter.fragment.CategoryFragment;
 import cn.ucai.fulicenter.fragment.NewGoodFragment;
@@ -103,7 +96,8 @@ public class FuLiCenterMainActivity extends BaseActivity {
         action = getIntent().getStringExtra("action");
         if (action != null && mCurrentUserName != null && action.equals("persion")) {
             index=4;
-            action = "";
+            getIntent().removeExtra("action");
+
         }
         if (currentIndex != index) {
             FragmentTransaction trx = getSupportFragmentManager().beginTransaction();
@@ -161,7 +155,6 @@ public class FuLiCenterMainActivity extends BaseActivity {
                 mCurrentUserName = FuLiCenterApplication.getInstance().getUserName();
                 if (mCurrentUserName != null) {
                     index = 4;
-                    downloadCollectCount(mCurrentUserName);
                 } else {
                     gotoLogin("persion");
                 }
@@ -180,30 +173,7 @@ public class FuLiCenterMainActivity extends BaseActivity {
         currentIndex = index;
     }
 
-    private void downloadCollectCount(String userName) {
-        try {
-            String path = new ApiParams().with(I.Collect.USER_NAME, userName)
-                    .getRequestUrl(I.REQUEST_FIND_COLLECT_COUNT);
-            Log.i("main", path);
-            executeRequest(new GsonRequest<MessageBean>(path,MessageBean.class,
-                    responseDownloadCollectCount(),errorListener()));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
-    private Response.Listener<MessageBean> responseDownloadCollectCount() {
-        return new Response.Listener<MessageBean>() {
-            @Override
-            public void onResponse(MessageBean messageBean) {
-                if (messageBean != null&messageBean.isSuccess()) {
-                    String count = messageBean.getMsg();
-                    Log.i("main", "messageBean.getMsg()" + count);
-                    sendBroadcast(new Intent("countChanger").putExtra("count", count));
-                }
-            }
-        };
-    }
 
     private void gotoLogin(String action) {
         Intent intent = new Intent(this, LoginActivity.class);

@@ -80,7 +80,6 @@ public class FuLiCenterApplication extends Application {
 		Log.i("main", url);
 		if (url != null&&!url.isEmpty()) {
 			SERVER_ROOT=url+":8080/SuperQQ4Server/Server";
-			Log.i("main", SERVER_ROOT);
 		}
 	}
 
@@ -142,6 +141,18 @@ public class FuLiCenterApplication extends Application {
 
 	private HashMap<Integer, ContactBean> contacts = new HashMap<Integer, ContactBean>();
 	private HashMap<String, ArrayList<UserBean>> groupMembers = new HashMap<String, ArrayList<UserBean>>();
+	/**
+	 * 收藏商品数量
+	 */
+	private int CollectCount;
+
+	public int getCollectCount() {
+		return CollectCount;
+	}
+
+	public void setCollectCount(int collectCount) {
+		CollectCount = collectCount;
+	}
 
 	public UserBean getUser() {
 		return user;

@@ -234,6 +234,7 @@ public class RegisterActivity extends BaseActivity {
 							// 保存用户名
 							FuLiCenterApplication.getInstance().setUserName(username);
 							Toast.makeText(getApplicationContext(), getResources().getString(R.string.Registered_successfully), Toast.LENGTH_SHORT).show();
+							gotoLogin();
 							finish();
 						}
 					});
@@ -261,7 +262,11 @@ public class RegisterActivity extends BaseActivity {
 		}).start();
 	}
 
-    private String getUserName() {
+	private void gotoLogin() {
+		startActivity(new Intent(this, LoginActivity.class));
+	}
+
+	private String getUserName() {
         String userName = userNameEditText.getText().toString();
         if (userName.isEmpty()) {
             Toast.makeText(registerActivity,"请先输入用户名",Toast.LENGTH_SHORT).show();

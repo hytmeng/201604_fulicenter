@@ -17,6 +17,7 @@ import cn.ucai.fulicenter.FuLiCenterApplication;
 import cn.ucai.fulicenter.R;
 import cn.ucai.fulicenter.bean.UserBean;
 import cn.ucai.fulicenter.db.UserDao;
+import cn.ucai.fulicenter.task.DownloadCollectCountTask;
 import cn.ucai.fulicenter.task.DownloadContactListTask;
 import cn.ucai.fulicenter.task.DownloadContactTask;
 
@@ -57,6 +58,8 @@ public class SplashActivity extends BaseActivity {
             new DownloadContactTask(mContext, userName, 0, 20).execute();
             //下载好友列表
             new DownloadContactListTask(mContext,userName,0,20).execute();
+            //下载收藏数量
+            new DownloadCollectCountTask(mContext,userName).execute();
             new Thread(new Runnable() {
                 public void run() {
                     // ** 免登陆情况 加载所有本地群和会话
@@ -75,6 +78,7 @@ public class SplashActivity extends BaseActivity {
                         }
                     }
                     //进入主页面
+                    sendStickyBroadcast(new Intent("update_user"));
                     startActivity(new Intent(SplashActivity.this, FuLiCenterMainActivity.class));
                     finish();
 

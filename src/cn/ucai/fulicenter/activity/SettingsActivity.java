@@ -153,8 +153,8 @@ public class SettingsActivity extends BaseActivity implements OnClickListener {
 
 
 		logoutBtn = (Button)findViewById(R.id.btn_logout);
-		if(!TextUtils.isEmpty(EMChatManager.getInstance().getCurrentUser())){
-			logoutBtn.setText(getString(R.string.button_logout) + "(" + EMChatManager.getInstance().getCurrentUser() + ")");
+		if(!TextUtils.isEmpty(FuLiCenterApplication.getInstance().getUserName())){
+			logoutBtn.setText(getString(R.string.button_logout) + "(" +FuLiCenterApplication.getInstance().getUserName() + ")");
 		}
 
 		textview1 = (TextView)findViewById(R.id.textview1);
@@ -358,10 +358,15 @@ public class SettingsActivity extends BaseActivity implements OnClickListener {
 						insatnce.getContactList().clear();
 						insatnce.getUserList().clear();
 						insatnce.getContacts().clear();
+						insatnce.setCollectCount(0);
+						insatnce.setUserName(null);
+						insatnce.setUser(null);
 						pd.dismiss();
 						// 重新显示登陆页面
+
 						finish();
-						startActivity(new Intent(SettingsActivity.this, LoginActivity.class));
+						sendStickyBroadcast(new Intent("update_user"));
+						startActivity(new Intent(SettingsActivity.this, LoginActivity.class).putExtra("action","setting"));
 					}
 				});
 			}
