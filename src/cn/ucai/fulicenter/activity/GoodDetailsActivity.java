@@ -1,6 +1,9 @@
 package cn.ucai.fulicenter.activity;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -8,17 +11,21 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.android.volley.toolbox.NetworkImageView;
 
+import java.util.ArrayList;
+
 import cn.ucai.fulicenter.D;
 import cn.ucai.fulicenter.FuLiCenterApplication;
 import cn.ucai.fulicenter.I;
 import cn.ucai.fulicenter.R;
 import cn.ucai.fulicenter.bean.AlbumsBean;
+import cn.ucai.fulicenter.bean.CartBean;
 import cn.ucai.fulicenter.bean.GoodDetailsBean;
 import cn.ucai.fulicenter.bean.MessageBean;
 import cn.ucai.fulicenter.bean.NewGoodBean;
@@ -46,8 +53,8 @@ public class GoodDetailsActivity extends BaseActivity{
     FlowIndicator mFlowIndicator;
     /** 显示颜色的容器布局*/
     LinearLayout mLayoutColors;
+    RelativeLayout mrlAddCart;
     ImageView mivCollect;
-    ImageView mivAddCart;
     ImageView mivShare;
     TextView mtvCartCount;
 
@@ -67,11 +74,14 @@ public class GoodDetailsActivity extends BaseActivity{
     boolean isCollect;
     private int actionCollect;
 
+    UpdataCartReceiver mUpdataCartReceiver;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.good_details);
+        updataCartReceiverRegister();
         mContext=this;
         initView();
         initData();
@@ -80,6 +90,24 @@ public class GoodDetailsActivity extends BaseActivity{
 
     private void setListener() {
         setCollectListener();
+        setCartListener();
+    }
+
+    private void setCartListener() {
+        mrlAddCart.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        String userName = FuLiCenterApplication.getInstance().getUserName();
+        if (userName != null ) {
+            Utils.addCart(mContext,mGoodDetails);
+
+            sendStickyBroadcast(new Intent("updata_cart"));
+
+        }else {
+            gotoLogin("goodDetails");
+        }
+    }
+});
     }
 
     private void setCollectListener() {
@@ -270,9 +298,9 @@ public class GoodDetailsActivity extends BaseActivity{
 
     private void initView() {
         mivCollect= (ImageView) findViewById(R.id.ivCollect);
-        mivAddCart=(ImageView) findViewById(R.id.ivAddCart);
         mivShare = (ImageView) findViewById(R.id.ivShare);
         mtvCartCount=(TextView) findViewById(R.id.tvCartCount);
+        mrlAddCart = (RelativeLayout) findViewById(R.id.rlAddCart);
 
         mSlideAutoLoopView= (SlideAutoLoopView) findViewById(R.id.salv);
         mFlowIndicator= (FlowIndicator) findViewById(R.id.indicator);
@@ -291,6 +319,23 @@ public class GoodDetailsActivity extends BaseActivity{
     protected void onResume() {
         super.onResume();
         initCollect();
+        initCart();
+    }
+
+    private void initCart() {
+        String userName = FuLiCenterApplication.getInstance().getUserName();
+        if (userName != null) {
+            showCartCount();
+        } else {
+            mtvCartCount.setVisibility(View.GONE);
+        }
+    }
+
+    private void showCartCount() {
+        ArrayList<CartBean> cartList = FuLiCenterApplication.getInstance().getCartList();
+        int i = Utils.sumCartCount(cartList);
+        mtvCartCount.setText(i + "");
+        mtvCartCount.setVisibility(View.VISIBLE);
     }
 
     private void initCollect() {
@@ -299,6 +344,20 @@ public class GoodDetailsActivity extends BaseActivity{
             showCollect(userName, mGoodsId);
         } else {
             mivCollect.setImageResource(R.drawable.bg_collect_in);
+        }
+    }
+
+
+    private void updataCartReceiverRegister() {
+        mUpdataCartReceiver = new UpdataCartReceiver();
+        IntentFilter filter = new IntentFilter("update_cart");
+        registerReceiver(mUpdataCartReceiver, filter);
+    }
+    class UpdataCartReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            showCartCount();
+
         }
     }
 }

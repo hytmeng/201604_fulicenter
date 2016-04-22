@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#e6dede"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvPriceAmount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginRight="15dp"
+                android:text="合计：￥99"
+                android:textColor="#f9f43cbc"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/tvPriceSave"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginRight="15dp"
+                android:text="节约￥0"
+                android:textColor="#4017f2"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnSettlement"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="结算"
+            android:textSize="20sp"
+            android:background="@color/main_orange"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/sfl_cart"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#fff">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <!--<include layout="@layout/commom_refresh_hint"/>-->
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_cart"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    />
+            </LinearLayout>
+        </android.support.v4.widget.SwipeRefreshLayout>
+        <TextView
+            android:id="@+id/tvCartHint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="你，赶紧去添加吧！"
+            android:textSize="25sp"
+            android:textColor="#f60"
+            android:layout_centerInParent="true"
+            />
+    </RelativeLayout>
+</LinearLayout>

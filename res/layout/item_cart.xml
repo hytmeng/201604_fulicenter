@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_centerVertical="true"
+    android:layout_marginTop="10dp"
+    android:background="@color/white"
+    android:gravity="center"
+    android:id="@+id/layout_cart">
+<CheckBox
+    android:id="@+id/rb_Check"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="20dp"
+    android:checked="true"
+    style="@style/CustomCheckboxTheme"
+    >
+</CheckBox>
+    <com.android.volley.toolbox.NetworkImageView
+        android:id="@+id/niv_good_thumb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/nopic"
+        android:layout_marginLeft="20dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/tvName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="购物物购物购物购物购物购物"
+            android:textColor="@color/main_orange"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:paddingTop="10dp"
+            />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="20dp"
+                android:gravity="center"
+                android:layout_marginTop="10dp"
+                android:paddingBottom="10dp"
+                >
+                <ImageView
+                    android:id="@+id/ivAddCart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/add_cart"
+                    />
+                <TextView
+                    android:id="@+id/tvCartCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="(1)"
+                    android:textColor="#f9f43cbc"
+                    android:textSize="20sp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    />
+                <ImageView
+                    android:id="@+id/ivDelCart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/del_cart"
+                    />
+
+            </LinearLayout>
+            <TextView
+                android:id="@+id/tv_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="￥99"
+                android:layout_centerInParent="true"
+                android:textColor="@color/main_orange"
+                android:textSize="20sp" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

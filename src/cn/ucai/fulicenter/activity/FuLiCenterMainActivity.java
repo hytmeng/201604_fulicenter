@@ -1,6 +1,9 @@
 package cn.ucai.fulicenter.activity;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -8,12 +11,17 @@ import android.view.View;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 import cn.ucai.fulicenter.FuLiCenterApplication;
 import cn.ucai.fulicenter.R;
+import cn.ucai.fulicenter.bean.CartBean;
 import cn.ucai.fulicenter.fragment.BoutiqueFragment;
 import cn.ucai.fulicenter.fragment.CategoryFragment;
+import cn.ucai.fulicenter.fragment.FragmentCart;
 import cn.ucai.fulicenter.fragment.NewGoodFragment;
 import cn.ucai.fulicenter.fragment.PersionalCenterFragment;
+import cn.ucai.fulicenter.utils.Utils;
 
 /**
  * Created by clawpo on 16/4/16.
@@ -32,6 +40,7 @@ public class FuLiCenterMainActivity extends BaseActivity {
     BoutiqueFragment mBoutiqueFragment;
     CategoryFragment mCategoryFragment;
     PersionalCenterFragment mPersionalCenterFragment;
+    FragmentCart mCartFragment;
     Fragment[] mFragments = new Fragment[5];
 
     int index;
@@ -41,11 +50,14 @@ public class FuLiCenterMainActivity extends BaseActivity {
     String mCurrentUserName;
     private String action;
 
+    UpdataCartReceiver mUpdataCartReceiver;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fulicenter_main);
         initView();
+        updataCartReceiverRegister();
         initFragment();
         // 添加显示第一个fragment
         getSupportFragmentManager()
@@ -54,6 +66,8 @@ public class FuLiCenterMainActivity extends BaseActivity {
                 .add(R.id.fragment_container, mBoutiqueFragment)
                 .add(R.id.fragment_container, mCategoryFragment)
                 .add(R.id.fragment_container, mPersionalCenterFragment)
+                .add(R.id.fragment_container, mCartFragment)
+                .hide(mCartFragment)
                 .hide(mPersionalCenterFragment)
                 .hide(mBoutiqueFragment)
                 .hide(mCategoryFragment)
@@ -66,23 +80,14 @@ public class FuLiCenterMainActivity extends BaseActivity {
         mBoutiqueFragment = new BoutiqueFragment();
         mCategoryFragment=new CategoryFragment();
         mPersionalCenterFragment = new PersionalCenterFragment();
+        mCartFragment = new FragmentCart();
         mFragments[0] = mNewGoodFragment;
         mFragments[1] = mBoutiqueFragment;
         mFragments[2] = mCategoryFragment;
         mFragments[4] = mPersionalCenterFragment;
+        mFragments[3] = mCartFragment;
     }
 
-//    private void initNewGood(){
-//        index = 0;
-//        currentIndex = 0;
-//        FragmentTransaction trx = getSupportFragmentManager().beginTransaction();
-//        trx.hide(mFragments[currentIndex]);
-//        if (!mFragments[index].isAdded()) {
-//            trx.add(R.id.fragment_container, mFragments[index]);
-//        }
-//        trx.show(mFragments[index]).commit();
-//        mLayoutNewGood.setChecked(true);
-//    }
 
     @Override
     protected void onResume() {
@@ -97,7 +102,11 @@ public class FuLiCenterMainActivity extends BaseActivity {
         if (action != null && mCurrentUserName != null && action.equals("persion")) {
             index=4;
             getIntent().removeExtra("action");
-
+        } else if (action != null && mCurrentUserName != null && action.equals("cart")) {
+            index=3;
+            getIntent().removeExtra("action");
+        } else if (action != null && mCurrentUserName == null && index == 4) {
+            index=0;
         }
         if (currentIndex != index) {
             FragmentTransaction trx = getSupportFragmentManager().beginTransaction();
@@ -149,7 +158,12 @@ public class FuLiCenterMainActivity extends BaseActivity {
                 index = 2;
                 break;
             case R.id.layout_cart:
-                index = 3;
+              String userName=  FuLiCenterApplication.getInstance().getUserName();
+                if (userName != null) {
+                    index = 3;
+                } else {
+                    gotoLogin("cart");
+                }
                 break;
             case R.id.layout_personal_center:
                 mCurrentUserName = FuLiCenterApplication.getInstance().getUserName();
@@ -192,5 +206,25 @@ public class FuLiCenterMainActivity extends BaseActivity {
     protected void onStart() {
         super.onStart();
         action = getIntent().getStringExtra("action");
+    }
+
+    private void updataCartReceiverRegister() {
+        mUpdataCartReceiver = new UpdataCartReceiver();
+        IntentFilter filter = new IntentFilter("update_cart");
+        registerReceiver(mUpdataCartReceiver, filter);
+    }
+    class UpdataCartReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            ArrayList<CartBean> cartList = FuLiCenterApplication.getInstance().getCartList();
+            int count = Utils.sumCartCount(cartList);
+
+            if (count > 0) {
+                mtvCartHint.setVisibility(View.VISIBLE);
+                mtvCartHint.setText(count + "");
+            } else {
+                mtvCartHint.setVisibility(View.GONE);
+            }
+        }
     }
 }

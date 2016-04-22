@@ -53,6 +53,7 @@ import cn.ucai.fulicenter.db.EMUserDao;
 import cn.ucai.fulicenter.db.UserDao;
 import cn.ucai.fulicenter.domain.User;
 import cn.ucai.fulicenter.listener.OnSetAvatarListener;
+import cn.ucai.fulicenter.task.DownloadCartListTask;
 import cn.ucai.fulicenter.task.DownloadCollectCountTask;
 import cn.ucai.fulicenter.task.DownloadContactListTask;
 import cn.ucai.fulicenter.task.DownloadContactTask;
@@ -336,6 +337,8 @@ public class LoginActivity extends BaseActivity {
                     new DownloadContactListTask(mContext,currentUsername,0,20).execute();
 					//下载收藏数量
 					new DownloadCollectCountTask(mContext,currentUsername).execute();
+					//下载购物车列表
+					new DownloadCartListTask(mContext, currentUsername, 0, 20).execute();
                 }
             });
 
@@ -367,7 +370,7 @@ public class LoginActivity extends BaseActivity {
 		sendStickyBroadcast(new Intent("update_user"));
 		if (action.equals("goodDetails")) {
 			finish();
-		} else if (action.equals("persion")) {
+		} else if (action.equals("persion")||action.equals("cart")) {
 			Intent intent = new Intent(LoginActivity.this,
 					FuLiCenterMainActivity.class).putExtra("action",action);
 			startActivity(intent);
